@@ -7,10 +7,19 @@ app = Flask(__name__)
 def index():
     if request.method == 'POST':
         system_content = request.form['system_content']
-        user_content = request.form['user_content']
-        assistant_content = request.form['assistant_content']
+        chat_type = request.form['chat_type']
         
-        entry = create_dataset_entry(system_content, user_content, assistant_content)
+        if chat_type == 'single':
+            user_content = request.form['user_content']
+            assistant_content = request.form['assistant_content']
+            messages = [
+                {"role": "user", "content": user_content},
+                {"role": "assistant", "content": assistant_content}
+            ]
+        else:  # multi-turn
+            messages = json.loads(request.form['messages'])
+        
+        entry = create_dataset_entry(system_content, messages)
         save_to_file(entry)
         return jsonify(entry)
     

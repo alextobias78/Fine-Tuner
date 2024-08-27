@@ -22,13 +22,28 @@
                 </div>
                 
                 <div class="input-group">
-                    <label for="user_content">User Content:</label>
-                    <textarea id="user_content" name="user_content" required></textarea>
+                    <label for="chat_type">Chat Type:</label>
+                    <select id="chat_type" name="chat_type">
+                        <option value="single">Single-turn</option>
+                        <option value="multi">Multi-turn</option>
+                    </select>
                 </div>
                 
-                <div class="input-group">
-                    <label for="assistant_content">Assistant Content:</label>
-                    <textarea id="assistant_content" name="assistant_content" required></textarea>
+                <div id="single-turn-inputs">
+                    <div class="input-group">
+                        <label for="user_content">User Content:</label>
+                        <textarea id="user_content" name="user_content"></textarea>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="assistant_content">Assistant Content:</label>
+                        <textarea id="assistant_content" name="assistant_content"></textarea>
+                    </div>
+                </div>
+                
+                <div id="multi-turn-inputs" style="display: none;">
+                    <div id="multi-turn-messages"></div>
+                    <button type="button" id="add-message">Add Message</button>
                 </div>
                 
                 <button type="submit" class="submit-btn">Create Entry</button>
@@ -42,10 +57,43 @@
 
     <script>
         let savedSystemPrompt = '';
+        let messageCounter = 0;
 
         document.getElementById('saveSystemPrompt').addEventListener('click', function() {
             savedSystemPrompt = document.getElementById('system_content').value;
             alert('System prompt saved!');
+        });
+
+        document.getElementById('chat_type').addEventListener('change', function() {
+            const singleTurnInputs = document.getElementById('single-turn-inputs');
+            const multiTurnInputs = document.getElementById('multi-turn-inputs');
+            if (this.value === 'single') {
+                singleTurnInputs.style.display = 'block';
+                multiTurnInputs.style.display = 'none';
+            } else {
+                singleTurnInputs.style.display = 'none';
+                multiTurnInputs.style.display = 'block';
+            }
+        });
+
+        document.getElementById('add-message').addEventListener('click', function() {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message-input';
+            messageDiv.innerHTML = `
+                <select name="role_${messageCounter}">
+                    <option value="user">User</option>
+                    <option value="assistant">Assistant</option>
+                </select>
+                <textarea name="content_${messageCounter}" placeholder="Message content"></textarea>
+                <input type="number" name="weight_${messageCounter}" min="0" max="1" step="1" value="1" placeholder="Weight (0 or 1)">
+                <button type="button" class="remove-message">Remove</button>
+            `;
+            document.getElementById('multi-turn-messages').appendChild(messageDiv);
+            messageCounter++;
+
+            messageDiv.querySelector('.remove-message').addEventListener('click', function() {
+                messageDiv.remove();
+            });
         });
 
         document.getElementById('datasetForm').addEventListener('submit', function(e) {
@@ -54,6 +102,18 @@
             if (savedSystemPrompt) {
                 formData.set('system_content', savedSystemPrompt);
             }
+
+            if (formData.get('chat_type') === 'multi') {
+                const messages = [];
+                document.querySelectorAll('.message-input').forEach((messageDiv, index) => {
+                    const role = messageDiv.querySelector(`select[name="role_${index}"]`).value;
+                    const content = messageDiv.querySelector(`textarea[name="content_${index}"]`).value;
+                    const weight = parseInt(messageDiv.querySelector(`input[name="weight_${index}"]`).value);
+                    messages.push({role, content, weight});
+                });
+                formData.set('messages', JSON.stringify(messages));
+            }
+
             fetch('/', {
                 method: 'POST',
                 body: formData,
@@ -70,6 +130,7 @@
                 document.getElementById('entries').innerHTML = `<pre>${data}</pre>` + document.getElementById('entries').innerHTML;
                 document.getElementById('user_content').value = '';
                 document.getElementById('assistant_content').value = '';
+                document.getElementById('multi-turn-messages').innerHTML = '';
             });
         });
     </script>

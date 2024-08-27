@@ -1,12 +1,10 @@
 import json
 
-def create_dataset_entry(system_content, user_content, assistant_content):
+def create_dataset_entry(system_content, messages):
     entry = {
         "messages": [
-            {"role": "system", "content": system_content},
-            {"role": "user", "content": user_content},
-            {"role": "assistant", "content": assistant_content}
-        ]
+            {"role": "system", "content": system_content}
+        ] + messages
     }
     return json.dumps(entry)
 
