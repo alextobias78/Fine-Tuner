@@ -36,7 +36,6 @@ document.addEventListener('DOMContentLoaded', function() {
             assistantResponseInput.value = '';
 
             updateDatasetPreview();
-            alert('Conversation added successfully. You can now generate the dataset or add more conversations.');
         } else {
             alert('Please fill in both User Prompt and Assistant Response before adding a new conversation.');
         }
