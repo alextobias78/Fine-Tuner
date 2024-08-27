@@ -3,29 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dataset Creator</title>
+    <title>AI Dataset Creator</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Dataset Creator</h1>
-    <div class="container">
-        <form id="datasetForm">
-            <div>
-                <label for="system_content">System Content:</label>
-                <textarea id="system_content" name="system_content" required></textarea>
-                <button type="button" id="saveSystemPrompt">Save System Prompt</button>
-            </div>
-            
-            <label for="user_content">User Content:</label>
-            <textarea id="user_content" name="user_content" required></textarea>
-            
-            <label for="assistant_content">Assistant Content:</label>
-            <textarea id="assistant_content" name="assistant_content" required></textarea>
-            
-            <button type="submit">Create Entry</button>
-        </form>
-        <div id="result"></div>
-        <div id="entries"></div>
+    <div class="app-container">
+        <header>
+            <h1>AI Dataset Creator</h1>
+            <p class="subtitle">Create high-quality AI training data with ease</p>
+        </header>
+        <main>
+            <form id="datasetForm">
+                <div class="input-group system-content">
+                    <label for="system_content">System Content:</label>
+                    <textarea id="system_content" name="system_content" required></textarea>
+                    <button type="button" id="saveSystemPrompt">Save System Prompt</button>
+                </div>
+                
+                <div class="input-group">
+                    <label for="user_content">User Content:</label>
+                    <textarea id="user_content" name="user_content" required></textarea>
+                </div>
+                
+                <div class="input-group">
+                    <label for="assistant_content">Assistant Content:</label>
+                    <textarea id="assistant_content" name="assistant_content" required></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">Create Entry</button>
+            </form>
+        </main>
+        <aside>
+            <div id="result" class="notification"></div>
+            <div id="entries" class="entries-container"></div>
+        </aside>
     </div>
 
     <script>
@@ -48,8 +60,14 @@
             })
             .then(response => response.text())
             .then(data => {
-                document.getElementById('result').textContent = 'Entry added successfully!';
-                document.getElementById('entries').innerHTML += `<pre>${data}</pre>`;
+                const notification = document.getElementById('result');
+                notification.textContent = 'Entry added successfully!';
+                notification.style.display = 'block';
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }, 3000);
+                
+                document.getElementById('entries').innerHTML = `<pre>${data}</pre>` + document.getElementById('entries').innerHTML;
                 document.getElementById('user_content').value = '';
                 document.getElementById('assistant_content').value = '';
             });

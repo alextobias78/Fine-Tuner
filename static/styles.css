@@ -1,95 +1,157 @@
+:root {
+    --primary-color: #6200ea;
+    --secondary-color: #03dac6;
+    --background-color: #f5f5f5;
+    --text-color: #333333;
+    --input-background: #ffffff;
+}
+
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f0f4f8;
-    color: #333;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: var(--primary-color);
+    color: white;
+    text-align: center;
+    padding: 2rem 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
-    color: #2c3e50;
-    text-align: center;
-    margin-bottom: 30px;
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    font-weight: 300;
+    margin-top: 0.5rem;
+}
+
+main {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 2rem;
 }
 
 form {
-    display: flex;
-    flex-direction: column;
-    background-color: #ffffff;
-    padding: 20px;
+    background-color: var(--input-background);
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    width: 100%;
+    max-width: 800px;
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
 }
 
 label {
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #34495e;
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--primary-color);
 }
 
 textarea {
-    height: 120px;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #bdc3c7;
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #e0e0e0;
     border-radius: 4px;
-    font-size: 14px;
-    resize: vertical;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
 }
 
 button {
-    background-color: #3498db;
+    background-color: var(--primary-color);
     color: white;
-    padding: 10px 15px;
     border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.1s ease;
 }
 
 button:hover {
-    background-color: #2980b9;
+    background-color: #7c4dff;
 }
 
-#result {
-    margin-top: 30px;
-    white-space: pre-wrap;
-    background-color: #ecf0f1;
-    padding: 15px;
-    border-radius: 8px;
-    overflow-x: auto;
-    border: 1px solid #bdc3c7;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 14px;
+button:active {
+    transform: scale(0.98);
 }
-.container {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+
 #saveSystemPrompt {
-    margin-top: 5px;
-    background-color: #2ecc71;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    margin-top: 0.5rem;
 }
 
 #saveSystemPrompt:hover {
-    background-color: #27ae60;
+    background-color: #00bfa5;
 }
 
-#entries {
-    margin-top: 20px;
-    border-top: 1px solid #bdc3c7;
-    padding-top: 20px;
+.submit-btn {
+    display: block;
+    width: 100%;
+    margin-top: 1rem;
+    font-weight: 700;
 }
 
-#entries pre {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
+aside {
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.notification {
+    background-color: #4caf50;
+    color: white;
+    padding: 1rem;
     border-radius: 4px;
-    padding: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
+    display: none;
+}
+
+.entries-container {
+    background-color: var(--input-background);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+}
+
+.entries-container pre {
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    padding: 1rem;
     overflow-x: auto;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+    main, aside {
+        padding: 1rem;
+    }
 }
