@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
             assistantResponseInput.value = '';
 
             updateDatasetPreview();
+            alert('Conversation added successfully. You can now generate the dataset or add more conversations.');
         } else {
             alert('Please fill in both User Prompt and Assistant Response before adding a new conversation.');
         }
@@ -44,19 +45,6 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         const systemPrompt = systemPromptInput.value;
-
-        // Check if there are any conversations in the dataset
-        if (conversations.length === 0) {
-            // If no conversations, check if current inputs are filled
-            const userPrompt = userPromptInput.value.trim();
-            const assistantResponse = assistantResponseInput.value.trim();
-            if (userPrompt && assistantResponse) {
-                conversations.push({
-                    userPrompt: userPrompt,
-                    assistantResponse: assistantResponse
-                });
-            }
-        }
 
         // Proceed only if there's at least one conversation
         if (conversations.length === 0) {
