@@ -45,6 +45,16 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         const systemPrompt = systemPromptInput.value;
+        const currentUserPrompt = userPromptInput.value.trim();
+        const currentAssistantResponse = assistantResponseInput.value.trim();
+
+        // Add current conversation if fields are filled
+        if (currentUserPrompt && currentAssistantResponse) {
+            conversations.push({
+                userPrompt: currentUserPrompt,
+                assistantResponse: currentAssistantResponse
+            });
+        }
 
         // Proceed only if there's at least one conversation
         if (conversations.length === 0) {
@@ -55,6 +65,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const formData = new FormData();
         formData.append('systemPrompt', systemPrompt);
         formData.append('conversations', JSON.stringify(conversations));
+
+        // Clear input fields
+        userPromptInput.value = '';
+        assistantResponseInput.value = '';
 
         fetch('/', {
             method: 'POST',
