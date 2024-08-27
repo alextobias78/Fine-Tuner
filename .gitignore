@@ -17,3 +17,5 @@
 .zip*
 .rar*
 .7z*
+.jsonl*
+.json*
