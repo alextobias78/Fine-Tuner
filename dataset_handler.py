@@ -8,8 +8,8 @@ def create_dataset_entry(system_content, user_content, assistant_content):
             {"role": "assistant", "content": assistant_content}
         ]
     }
-    return entry
+    return json.dumps(entry)
 
 def save_to_file(entry, filename="dataset.jsonl"):
-    with open(filename, "a") as f:
-        f.write(json.dumps(entry) + "\n")
+    with open(filename, "a", encoding="utf-8") as f:
+        f.write(entry + "\n")

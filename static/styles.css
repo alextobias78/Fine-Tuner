@@ -10,8 +10,13 @@ form {
     flex-direction: column;
 }
 
-label, input, button {
+label, textarea, button {
     margin-bottom: 10px;
+}
+
+textarea {
+    height: 100px;
+    padding: 5px;
 }
 
 #result {
@@ -20,4 +25,5 @@ label, input, button {
     background-color: #f0f0f0;
     padding: 10px;
     border-radius: 5px;
+    overflow-x: auto;
 }

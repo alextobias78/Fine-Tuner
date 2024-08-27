@@ -10,13 +10,13 @@
     <h1>Dataset Creator</h1>
     <form id="datasetForm">
         <label for="system_content">System Content:</label>
-        <input type="text" id="system_content" name="system_content" required>
+        <textarea id="system_content" name="system_content" required></textarea>
         
         <label for="user_content">User Content:</label>
-        <input type="text" id="user_content" name="user_content" required>
+        <textarea id="user_content" name="user_content" required></textarea>
         
         <label for="assistant_content">Assistant Content:</label>
-        <input type="text" id="assistant_content" name="assistant_content" required>
+        <textarea id="assistant_content" name="assistant_content" required></textarea>
         
         <button type="submit">Create Entry</button>
     </form>
@@ -29,9 +29,9 @@
                 method: 'POST',
                 body: new FormData(this),
             })
-            .then(response => response.json())
+            .then(response => response.text())
             .then(data => {
-                document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+                document.getElementById('result').textContent = data;
             });
         });
     </script>
