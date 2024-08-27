@@ -45,18 +45,10 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
         const systemPrompt = systemPromptInput.value;
 
-        // Check if there's at least one conversation or if current fields are filled
-        if (conversations.length === 0 && !(userPromptInput.value.trim() && assistantResponseInput.value.trim())) {
+        // Check if there's at least one conversation
+        if (conversations.length === 0) {
             alert('Please add at least one conversation before generating the dataset.');
             return;
-        }
-
-        // If current fields are filled, add them to conversations
-        if (userPromptInput.value.trim() && assistantResponseInput.value.trim()) {
-            conversations.push({
-                userPrompt: userPromptInput.value.trim(),
-                assistantResponse: assistantResponseInput.value.trim()
-            });
         }
 
         const formData = new FormData();
@@ -167,23 +159,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function updateDatasetPreview() {
         const systemPrompt = systemPromptInput.value;
-        const currentUserPrompt = userPromptInput.value.trim();
-        const currentAssistantResponse = assistantResponseInput.value.trim();
 
-        const allConversations = [...conversations];
-        if (currentUserPrompt && currentAssistantResponse) {
-            allConversations.push({
-                userPrompt: currentUserPrompt,
-                assistantResponse: currentAssistantResponse
-            });
-        }
-
-        if (allConversations.length === 0) {
-            previewContainer.textContent = "No conversations added yet. Add a conversation or fill in the current fields to see a preview.";
+        if (conversations.length === 0) {
+            previewContainer.textContent = "No conversations added yet. Add a conversation to see a preview.";
             return;
         }
 
-        const dataset = allConversations.map(conv => ({
+        const dataset = conversations.map(conv => ({
             messages: [
                 { role: "system", content: systemPrompt },
                 { role: "user", content: conv.userPrompt },
