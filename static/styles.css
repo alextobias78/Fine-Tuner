@@ -70,3 +70,26 @@ button:hover {
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+#saveSystemPrompt {
+    margin-top: 5px;
+    background-color: #2ecc71;
+}
+
+#saveSystemPrompt:hover {
+    background-color: #27ae60;
+}
+
+#entries {
+    margin-top: 20px;
+    border-top: 1px solid #bdc3c7;
+    padding-top: 20px;
+}
+
+#entries pre {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+    overflow-x: auto;
+}

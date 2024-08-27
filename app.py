@@ -1,5 +1,5 @@
-from flask import Flask, request, render_template, Response
-from dataset_handler import create_dataset_entry, save_to_file
+from flask import Flask, request, render_template, jsonify
+from dataset_handler import create_dataset_entry, save_to_file, get_dataset_entries
 
 app = Flask(__name__)
 
@@ -12,9 +12,9 @@ def index():
         
         entry = create_dataset_entry(system_content, user_content, assistant_content)
         save_to_file(entry)
-        return Response(entry, mimetype='application/json')
+        return jsonify(entry)
     
-    return render_template('index.html')
+    return render_template('index.html', entries=get_dataset_entries())
 
 if __name__ == '__main__':
     app.run(debug=True)

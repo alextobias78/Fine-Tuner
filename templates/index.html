@@ -10,30 +10,48 @@
     <h1>Dataset Creator</h1>
     <div class="container">
         <form id="datasetForm">
-        <label for="system_content">System Content:</label>
-        <textarea id="system_content" name="system_content" required></textarea>
-        
-        <label for="user_content">User Content:</label>
-        <textarea id="user_content" name="user_content" required></textarea>
-        
-        <label for="assistant_content">Assistant Content:</label>
-        <textarea id="assistant_content" name="assistant_content" required></textarea>
-        
-        <button type="submit">Create Entry</button>
+            <div>
+                <label for="system_content">System Content:</label>
+                <textarea id="system_content" name="system_content" required></textarea>
+                <button type="button" id="saveSystemPrompt">Save System Prompt</button>
+            </div>
+            
+            <label for="user_content">User Content:</label>
+            <textarea id="user_content" name="user_content" required></textarea>
+            
+            <label for="assistant_content">Assistant Content:</label>
+            <textarea id="assistant_content" name="assistant_content" required></textarea>
+            
+            <button type="submit">Create Entry</button>
         </form>
         <div id="result"></div>
+        <div id="entries"></div>
     </div>
 
     <script>
+        let savedSystemPrompt = '';
+
+        document.getElementById('saveSystemPrompt').addEventListener('click', function() {
+            savedSystemPrompt = document.getElementById('system_content').value;
+            alert('System prompt saved!');
+        });
+
         document.getElementById('datasetForm').addEventListener('submit', function(e) {
             e.preventDefault();
+            const formData = new FormData(this);
+            if (savedSystemPrompt) {
+                formData.set('system_content', savedSystemPrompt);
+            }
             fetch('/', {
                 method: 'POST',
-                body: new FormData(this),
+                body: formData,
             })
             .then(response => response.text())
             .then(data => {
-                document.getElementById('result').textContent = data;
+                document.getElementById('result').textContent = 'Entry added successfully!';
+                document.getElementById('entries').innerHTML += `<pre>${data}</pre>`;
+                document.getElementById('user_content').value = '';
+                document.getElementById('assistant_content').value = '';
             });
         });
     </script>
