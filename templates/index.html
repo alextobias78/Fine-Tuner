@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dataset Creator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Dataset Creator</h1>
+    <form id="datasetForm">
+        <label for="system_content">System Content:</label>
+        <input type="text" id="system_content" name="system_content" required>
+        
+        <label for="user_content">User Content:</label>
+        <input type="text" id="user_content" name="user_content" required>
+        
+        <label for="assistant_content">Assistant Content:</label>
+        <input type="text" id="assistant_content" name="assistant_content" required>
+        
+        <button type="submit">Create Entry</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('datasetForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            fetch('/', {
+                method: 'POST',
+                body: new FormData(this),
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+            });
+        });
+    </script>
+</body>
+</html>

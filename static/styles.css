@@ -1,0 +1,23 @@
+body {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label, input, button {
+    margin-bottom: 10px;
+}
+
+#result {
+    margin-top: 20px;
+    white-space: pre-wrap;
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+}
