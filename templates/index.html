@@ -8,7 +8,8 @@
 </head>
 <body>
     <h1>Dataset Creator</h1>
-    <form id="datasetForm">
+    <div class="container">
+        <form id="datasetForm">
         <label for="system_content">System Content:</label>
         <textarea id="system_content" name="system_content" required></textarea>
         
@@ -19,8 +20,9 @@
         <textarea id="assistant_content" name="assistant_content" required></textarea>
         
         <button type="submit">Create Entry</button>
-    </form>
-    <div id="result"></div>
+        </form>
+        <div id="result"></div>
+    </div>
 
     <script>
         document.getElementById('datasetForm').addEventListener('submit', function(e) {
