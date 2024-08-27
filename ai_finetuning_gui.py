@@ -3,9 +3,9 @@ import json
 from PyQt5.QtWidgets import (QApplication, QWidget, QVBoxLayout, QHBoxLayout, 
                              QLabel, QTextEdit, QPushButton, QComboBox, 
                              QGroupBox, QMessageBox, QScrollArea, QListWidget,
-                             QStatusBar)
-from PyQt5.QtGui import QFont, QColor, QPalette
-from PyQt5.QtCore import Qt
+                             QStatusBar, QGraphicsDropShadowEffect)
+from PyQt5.QtGui import QFont, QColor, QPalette, QIcon
+from PyQt5.QtCore import Qt, QPropertyAnimation, QEasingCurve, QSize
 
 class FineTuningGUI(QWidget):
     def __init__(self):
@@ -20,74 +20,86 @@ class FineTuningGUI(QWidget):
         main_layout = QVBoxLayout()
         self.setStyleSheet("""
             QWidget {
-                background-color: #2C3E50;
-                color: #ECF0F1;
+                background-color: #F0F4F8;
+                color: #2D3748;
                 font-family: 'Segoe UI', Arial, sans-serif;
             }
             QGroupBox {
-                border: 2px solid #34495E;
-                border-radius: 8px;
+                border: 2px solid #E2E8F0;
+                border-radius: 12px;
                 margin-top: 1ex;
-                background-color: #34495E;
+                background-color: #FFFFFF;
+                padding: 10px;
             }
             QGroupBox::title {
                 subcontrol-origin: margin;
                 left: 10px;
-                padding: 0 3px 0 3px;
-                color: #1ABC9C;
-            }
-            QPushButton {
-                background-color: #2980B9;
-                color: white;
-                border: none;
-                padding: 8px 15px;
-                border-radius: 4px;
+                padding: 0 5px 0 5px;
+                color: #4A5568;
                 font-weight: bold;
             }
+            QPushButton {
+                background-color: #4299E1;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 8px;
+                font-weight: bold;
+                font-size: 14px;
+            }
             QPushButton:hover {
-                background-color: #3498DB;
+                background-color: #3182CE;
             }
             QPushButton:pressed {
-                background-color: #21618C;
+                background-color: #2B6CB0;
             }
             QTextEdit, QComboBox, QListWidget {
-                border: 1px solid #445566;
-                border-radius: 4px;
-                padding: 5px;
-                background-color: #445566;
-                color: #ECF0F1;
+                border: 2px solid #E2E8F0;
+                border-radius: 8px;
+                padding: 8px;
+                background-color: #FFFFFF;
+                color: #2D3748;
             }
             QComboBox::drop-down {
                 border: none;
-                background-color: #2980B9;
-                width: 25px;
-                border-top-right-radius: 4px;
-                border-bottom-right-radius: 4px;
+                background-color: #4299E1;
+                width: 30px;
+                border-top-right-radius: 8px;
+                border-bottom-right-radius: 8px;
             }
             QComboBox::down-arrow {
                 image: url(down_arrow.png);
-                width: 14px;
-                height: 14px;
+                width: 16px;
+                height: 16px;
             }
             QScrollBar:vertical {
                 border: none;
-                background: #34495E;
-                width: 10px;
+                background: #EDF2F7;
+                width: 12px;
                 margin: 0px 0px 0px 0px;
+                border-radius: 6px;
             }
             QScrollBar::handle:vertical {
-                background: #2980B9;
-                min-height: 20px;
-                border-radius: 5px;
+                background: #CBD5E0;
+                min-height: 30px;
+                border-radius: 6px;
             }
             QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
                 height: 0px;
             }
             QStatusBar {
-                background-color: #34495E;
-                color: #1ABC9C;
+                background-color: #EDF2F7;
+                color: #4A5568;
             }
         """)
+        
+        # Add shadow effect to buttons
+        for button in self.findChildren(QPushButton):
+            shadow = QGraphicsDropShadowEffect(self)
+            shadow.setBlurRadius(8)
+            shadow.setColor(QColor(0, 0, 0, 50))
+            shadow.setOffset(0, 2)
+            button.setGraphicsEffect(shadow)
 
         # Format selection
         format_group = QGroupBox("Format")
@@ -189,7 +201,31 @@ class FineTuningGUI(QWidget):
         text_edit.setMaximumHeight(100)
         layout.addWidget(text_edit)
         group.setLayout(layout)
+        
+        # Add animation to the text edit
+        self.add_focus_animation(text_edit)
+        
         return group
+
+    def add_focus_animation(self, widget):
+        def on_focus_in():
+            animation = QPropertyAnimation(widget, b"minimumHeight")
+            animation.setDuration(200)
+            animation.setStartValue(widget.height())
+            animation.setEndValue(widget.height() + 20)
+            animation.setEasingCurve(QEasingCurve.OutCubic)
+            animation.start()
+
+        def on_focus_out():
+            animation = QPropertyAnimation(widget, b"minimumHeight")
+            animation.setDuration(200)
+            animation.setStartValue(widget.height())
+            animation.setEndValue(widget.height() - 20)
+            animation.setEasingCurve(QEasingCurve.OutCubic)
+            animation.start()
+
+        widget.focusInEvent = lambda e: on_focus_in()
+        widget.focusOutEvent = lambda e: on_focus_out()
 
     def toggle_format(self):
         is_multi_turn = self.format_combo.currentText() == "Multi-turn"
@@ -331,20 +367,24 @@ class FineTuningGUI(QWidget):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     app.setStyle("Fusion")
-    dark_palette = QPalette()
-    dark_palette.setColor(QPalette.Window, QColor(44, 62, 80))
-    dark_palette.setColor(QPalette.WindowText, QColor(236, 240, 241))
-    dark_palette.setColor(QPalette.Base, QColor(52, 73, 94))
-    dark_palette.setColor(QPalette.AlternateBase, QColor(44, 62, 80))
-    dark_palette.setColor(QPalette.ToolTipBase, QColor(236, 240, 241))
-    dark_palette.setColor(QPalette.ToolTipText, QColor(236, 240, 241))
-    dark_palette.setColor(QPalette.Text, QColor(236, 240, 241))
-    dark_palette.setColor(QPalette.Button, QColor(41, 128, 185))
-    dark_palette.setColor(QPalette.ButtonText, QColor(236, 240, 241))
-    dark_palette.setColor(QPalette.BrightText, Qt.red)
-    dark_palette.setColor(QPalette.Link, QColor(26, 188, 156))
-    dark_palette.setColor(QPalette.Highlight, QColor(26, 188, 156))
-    dark_palette.setColor(QPalette.HighlightedText, QColor(236, 240, 241))
-    app.setPalette(dark_palette)
+    light_palette = QPalette()
+    light_palette.setColor(QPalette.Window, QColor(240, 244, 248))
+    light_palette.setColor(QPalette.WindowText, QColor(45, 55, 72))
+    light_palette.setColor(QPalette.Base, QColor(255, 255, 255))
+    light_palette.setColor(QPalette.AlternateBase, QColor(237, 242, 247))
+    light_palette.setColor(QPalette.ToolTipBase, QColor(255, 255, 255))
+    light_palette.setColor(QPalette.ToolTipText, QColor(45, 55, 72))
+    light_palette.setColor(QPalette.Text, QColor(45, 55, 72))
+    light_palette.setColor(QPalette.Button, QColor(66, 153, 225))
+    light_palette.setColor(QPalette.ButtonText, QColor(255, 255, 255))
+    light_palette.setColor(QPalette.BrightText, Qt.red)
+    light_palette.setColor(QPalette.Link, QColor(49, 130, 206))
+    light_palette.setColor(QPalette.Highlight, QColor(66, 153, 225))
+    light_palette.setColor(QPalette.HighlightedText, QColor(255, 255, 255))
+    app.setPalette(light_palette)
+    
+    # Set app icon
+    app.setWindowIcon(QIcon('app_icon.png'))
+    
     ex = FineTuningGUI()
     sys.exit(app.exec_())
