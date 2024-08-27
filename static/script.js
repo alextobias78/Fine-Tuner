@@ -47,8 +47,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Check if there's at least one conversation
         if (conversations.length === 0) {
-            alert('Please add at least one conversation before generating the dataset.');
-            return;
+            // If no conversations in the array, check if current fields are filled
+            const currentUserPrompt = userPromptInput.value.trim();
+            const currentAssistantResponse = assistantResponseInput.value.trim();
+            if (currentUserPrompt && currentAssistantResponse) {
+                conversations.push({
+                    userPrompt: currentUserPrompt,
+                    assistantResponse: currentAssistantResponse
+                });
+            } else {
+                alert('Please add at least one conversation before generating the dataset.');
+                return;
+            }
         }
 
         const formData = new FormData();
@@ -159,13 +169,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function updateDatasetPreview() {
         const systemPrompt = systemPromptInput.value;
+        const currentUserPrompt = userPromptInput.value.trim();
+        const currentAssistantResponse = assistantResponseInput.value.trim();
 
-        if (conversations.length === 0) {
-            previewContainer.textContent = "No conversations added yet. Add a conversation to see a preview.";
+        let previewConversations = [...conversations];
+        if (currentUserPrompt && currentAssistantResponse) {
+            previewConversations.push({
+                userPrompt: currentUserPrompt,
+                assistantResponse: currentAssistantResponse
+            });
+        }
+
+        if (previewConversations.length === 0) {
+            previewContainer.textContent = "No conversations added yet. Add a conversation or fill in the current fields to see a preview.";
             return;
         }
 
-        const dataset = conversations.map(conv => ({
+        const dataset = previewConversations.map(conv => ({
             messages: [
                 { role: "system", content: systemPrompt },
                 { role: "user", content: conv.userPrompt },
