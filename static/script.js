@@ -45,30 +45,24 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         const systemPrompt = systemPromptInput.value;
-        const currentUserPrompt = userPromptInput.value.trim();
-        const currentAssistantResponse = assistantResponseInput.value.trim();
 
-        // Add current conversation if fields are filled
-        if (currentUserPrompt && currentAssistantResponse) {
-            conversations.push({
-                userPrompt: currentUserPrompt,
-                assistantResponse: currentAssistantResponse
-            });
-        }
-
-        // Proceed only if there's at least one conversation
-        if (conversations.length === 0) {
+        // Check if there's at least one conversation or if current fields are filled
+        if (conversations.length === 0 && !(userPromptInput.value.trim() && assistantResponseInput.value.trim())) {
             alert('Please add at least one conversation before generating the dataset.');
             return;
+        }
+
+        // If current fields are filled, add them to conversations
+        if (userPromptInput.value.trim() && assistantResponseInput.value.trim()) {
+            conversations.push({
+                userPrompt: userPromptInput.value.trim(),
+                assistantResponse: assistantResponseInput.value.trim()
+            });
         }
 
         const formData = new FormData();
         formData.append('systemPrompt', systemPrompt);
         formData.append('conversations', JSON.stringify(conversations));
-
-        // Clear input fields
-        userPromptInput.value = '';
-        assistantResponseInput.value = '';
 
         fetch('/', {
             method: 'POST',
@@ -183,6 +177,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 userPrompt: currentUserPrompt,
                 assistantResponse: currentAssistantResponse
             });
+        }
+
+        if (allConversations.length === 0) {
+            previewContainer.textContent = "No conversations added yet. Add a conversation or fill in the current fields to see a preview.";
+            return;
         }
 
         const dataset = allConversations.map(conv => ({
