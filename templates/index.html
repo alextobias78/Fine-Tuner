@@ -10,11 +10,27 @@
         <label for="system_prompt">System Prompt:</label><br>
         <textarea id="system_prompt" name="system_prompt" rows="4" cols="50"></textarea><br><br>
 
-        <label for="user_input">User Input:</label><br>
-        <textarea id="user_input" name="user_input" rows="4" cols="50"></textarea><br><br>
+        <div id="prompts-container">
+            <div class="prompt-set">
+                <label for="user_input">User Input:</label><br>
+                <textarea class="user-input" name="user_input[]" rows="4" cols="50"></textarea><br><br>
 
-        <label for="assistant_input">Assistant Input:</label><br>
-        <textarea id="assistant_input" name="assistant_input" rows="4" cols="50"></textarea><br><br>
+                <label for="assistant_input">Assistant Input:</label><br>
+                <textarea class="assistant-input" name="assistant_input[]" rows="4" cols="50"></textarea><br><br>
+
+                <label for="weight">Weight:</label>
+                <select class="weight" name="weight[]">
+                    <option value="1">1</option>
+                    <option value="0">0</option>
+                </select><br><br>
+            </div>
+        </div>
+
+        <button type="button" id="add-prompt">Add Prompt</button><br><br>
+
+        <label for="multi_prompt_mode">
+            <input type="checkbox" id="multi_prompt_mode" name="multi_prompt_mode"> Multi-Prompt Mode
+        </label><br><br>
 
         <input type="submit" value="Submit">
     </form>

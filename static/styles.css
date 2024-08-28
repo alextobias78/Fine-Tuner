@@ -43,7 +43,7 @@ textarea {
     font-size: 1em;
 }
 
-input[type="submit"] {
+input[type="submit"], button {
     background-color: #3498db;
     color: white;
     padding: 12px 20px;
@@ -54,7 +54,7 @@ input[type="submit"] {
     transition: background-color 0.3s ease;
 }
 
-input[type="submit"]:hover {
+input[type="submit"]:hover, button:hover {
     background-color: #2980b9;
 }
 
@@ -68,4 +68,30 @@ input[type="submit"]:hover {
     width: 80%;
     max-width: 600px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.prompt-set {
+    border: 1px solid #bdc3c7;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+
+#add-prompt {
+    margin-bottom: 15px;
+}
+
+.remove-prompt {
+    background-color: #e74c3c;
+}
+
+.remove-prompt:hover {
+    background-color: #c0392b;
+}
+
+select {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #bdc3c7;
+    font-size: 1em;
 }
