@@ -30,7 +30,7 @@ def index():
         response_data = {"messages": response_lines}
 
         # Append the entry to the JSONL file
-        with open(filename, 'a') as f:
+        with open(filename, 'a', encoding='utf-8') as f:
             f.write(json.dumps(response_data) + '\n')
 
         return "Entries have been saved to " + filename
