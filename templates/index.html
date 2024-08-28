@@ -14,45 +14,56 @@
             <p class="subtitle">Create high-quality AI training data with ease</p>
         </header>
         <main>
-            <form id="datasetForm">
-                <div class="input-group system-content">
-                    <label for="system_content">System Content:</label>
-                    <textarea id="system_content" name="system_content" required></textarea>
-                    <button type="button" id="saveSystemPrompt">Save System Prompt</button>
-                </div>
-                
-                <div class="input-group">
-                    <label for="chat_type">Chat Type:</label>
-                    <select id="chat_type" name="chat_type">
-                        <option value="single">Single-turn</option>
-                        <option value="multi">Multi-turn</option>
-                    </select>
-                </div>
-                
-                <div id="single-turn-inputs">
-                    <div class="input-group">
-                        <label for="user_content">User Content:</label>
-                        <textarea id="user_content" name="user_content"></textarea>
+            <div class="input-column">
+                <form id="datasetForm">
+                    <div class="input-group system-content">
+                        <label for="system_content">System Content:</label>
+                        <textarea id="system_content" name="system_content" required></textarea>
+                        <button type="button" id="saveSystemPrompt">Save System Prompt</button>
                     </div>
                     
                     <div class="input-group">
-                        <label for="assistant_content">Assistant Content:</label>
-                        <textarea id="assistant_content" name="assistant_content"></textarea>
+                        <label for="chat_type">Chat Type:</label>
+                        <div class="toggle-switch">
+                            <input type="radio" id="single-turn" name="chat_type" value="single" checked>
+                            <label for="single-turn">Single-turn</label>
+                            <input type="radio" id="multi-turn" name="chat_type" value="multi">
+                            <label for="multi-turn">Multi-turn</label>
+                        </div>
                     </div>
+                    
+                    <div id="single-turn-inputs">
+                        <div class="input-group">
+                            <label for="user_content">User Content:</label>
+                            <textarea id="user_content" name="user_content"></textarea>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="assistant_content">Assistant Content:</label>
+                            <textarea id="assistant_content" name="assistant_content"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div id="multi-turn-inputs" style="display: none;">
+                        <div id="multi-turn-messages"></div>
+                        <button type="button" id="add-message">Add Message</button>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Create Entry</button>
+                </form>
+            </div>
+            <div class="preview-column">
+                <h2>Dataset Preview</h2>
+                <div id="entries" class="entries-container"></div>
+            </div>
+            <div class="control-column">
+                <div id="result" class="notification"></div>
+                <div class="search-container">
+                    <input type="text" id="search-input" placeholder="Search dataset...">
+                    <button id="search-button">Search</button>
                 </div>
-                
-                <div id="multi-turn-inputs" style="display: none;">
-                    <div id="multi-turn-messages"></div>
-                    <button type="button" id="add-message">Add Message</button>
-                </div>
-                
-                <button type="submit" class="submit-btn">Create Entry</button>
-            </form>
+            </div>
         </main>
-        <aside>
-            <div id="result" class="notification"></div>
-            <div id="entries" class="entries-container"></div>
-        </aside>
     </div>
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
