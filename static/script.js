@@ -10,9 +10,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const addMessageBtn = document.getElementById('add-message');
     const datasetForm = document.getElementById('datasetForm');
     const entriesContainer = document.getElementById('entries');
-    const searchInput = document.getElementById('search-input');
-    const searchButton = document.getElementById('search-button');
-
     saveSystemPromptBtn.addEventListener('click', function() {
         savedSystemPrompt = systemContentInput.value;
         showNotification('System prompt saved!', 'success');
@@ -33,8 +30,6 @@ document.addEventListener('DOMContentLoaded', function() {
     addMessageBtn.addEventListener('click', addMessageInput);
 
     datasetForm.addEventListener('submit', handleFormSubmit);
-
-    searchButton.addEventListener('click', performSearch);
 
     // Initial dataset load
     fetchDatasetEntries();
@@ -116,19 +111,6 @@ function resetForm() {
     document.getElementById('multi-turn-messages').innerHTML = '';
 }
 
-function performSearch() {
-    const searchTerm = document.getElementById('search-input').value.toLowerCase();
-    const entries = document.querySelectorAll('#entries .entry');
-    
-    entries.forEach(entry => {
-        const entryText = entry.textContent.toLowerCase();
-        if (entryText.includes(searchTerm)) {
-            entry.style.display = 'block';
-        } else {
-            entry.style.display = 'none';
-        }
-    });
-}
 
 function fetchDatasetEntries() {
     fetch('/get_entries')

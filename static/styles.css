@@ -177,15 +177,6 @@ button:active {
     display: none;
 }
 
-.search-container {
-    display: flex;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-}
-
-.search-container input[type="text"] {
-    flex-grow: 1;
-}
 
 @media (max-width: 1200px) {
     main {
