@@ -124,7 +124,10 @@ function addEntryToPreview(entry) {
 }
 
 function resetForm() {
+    const systemContentInput = document.getElementById('system_content');
+    const savedSystemPrompt = systemContentInput.value;
     document.getElementById('datasetForm').reset();
+    systemContentInput.value = savedSystemPrompt;
     document.getElementById('multi-turn-messages').innerHTML = '';
 }
 
