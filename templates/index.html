@@ -2,35 +2,7 @@
 <html>
 <head>
     <title>GPT-4 Fine-Tuner</title>
-    <style>
-        body {
-            font-family: sans-serif;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        textarea, input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            box-sizing: border-box;
-        }
-        input[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            cursor: pointer;
-        }
-        #response {
-            margin-top: 20px;
-            border: 1px solid #ccc;
-            padding: 10px;
-            white-space: pre-wrap; /* Allow line breaks in the response */
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
     <h1>GPT-4 Fine-Tuner</h1>
@@ -41,27 +13,14 @@
         <label for="user_input">User Input:</label><br>
         <input type="text" id="user_input" name="user_input"><br><br>
 
+        <label for="assistant_input">Assistant Input:</label><br>
+        <textarea id="assistant_input" name="assistant_input" rows="4" cols="50"></textarea><br><br>
+
         <input type="submit" value="Submit">
     </form>
 
     <div id="response"></div>
 
-    <script>
-        const form = document.querySelector('form');
-        const responseDiv = document.getElementById('response');
-
-        form.addEventListener('submit', async (event) => {
-            event.preventDefault();
-
-            const formData = new FormData(form);
-            const response = await fetch('/', {
-                method: 'POST',
-                body: formData
-            });
-
-            const data = await response.json();
-            responseDiv.textContent = JSON.stringify(data, null, 2);
-        });
-    </script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

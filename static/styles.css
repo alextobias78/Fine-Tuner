@@ -1,233 +1,27 @@
-:root {
-    --primary-color: #2196F3; /* Updated primary color */
-    --secondary-color: #00BCD4; /* Updated secondary color */
-    --background-color: #f8f9fa; /* Updated background color */
-    --text-color: #343a40; /* Updated text color */
-    --input-background: #ffffff;
-    --border-color: #ced4da; /* Updated border color */
-    --error-color: #dc3545; /* Updated error color */
-    --shadow-color: rgba(0, 0, 0, 0.1); /* Added shadow color variable */
-}
-
 body {
-    font-family: 'Inter', sans-serif; /* Updated font to Inter */
-    margin: 0;
-    padding: 0;
-    background-color: var(--background-color);
-    color: var(--text-color);
-    -webkit-font-smoothing: antialiased; /* Improved text rendering */
-    -moz-osx-font-smoothing: grayscale; /* Improved text rendering */
+    font-family: sans-serif;
 }
-
-.app-container {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    align-items: center; /* Center content horizontally */
-}
-
-header {
-    background-color: var(--primary-color);
-    color: white;
-    text-align: center;
-    padding: 2rem 0;
-    width: 100%; /* Make header full width */
-    box-shadow: 0 4px 6px var(--shadow-color); /* Use shadow variable */
-}
-
-h1 {
-    margin: 0;
-    font-size: 2.5rem;
-    font-weight: 700;
-}
-
-.subtitle {
-    font-size: 1.2rem;
-    font-weight: 400; /* Slightly lighter font weight */
-    margin-top: 0.5rem;
-    opacity: 0.8;
-}
-
-main {
-    flex-grow: 1;
-    padding: 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    width: 100%; /* Make main content full width */
-}
-
-.input-column {
-    background-color: var(--input-background);
-    border-radius: 12px;
-    box-shadow: 0 10px 20px var(--shadow-color); /* Use shadow variable */
-    padding: 2rem;
-    width: 100%;
-    max-width: 700px; /* Increased max-width */
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.input-group {
-    display: flex;
-    flex-direction: column;
-}
-
 label {
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-    color: var(--text-color); /* Use text color for labels */
+    display: block;
+    margin-bottom: 5px;
 }
-
 textarea, input[type="text"] {
     width: 100%;
-    padding: 0.75rem;
-    border: 1px solid var(--border-color); /* Thinner border */
-    border-radius: 4px; /* Smaller border radius */
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    background-color: #ffffff; /* White background */
-    font-family: 'Roboto', sans-serif; /* Use Roboto font */
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); /* Subtle shadow */
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
 }
-
-textarea:focus, input[type="text"]:focus {
-    outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24), 0 0 0 3px rgba(33, 150, 243, 0.2); /* Updated focus shadow */
-}
-
-button {
-    background-color: var(--primary-color);
+input[type="submit"] {
+    background-color: #4CAF50;
     color: white;
+    padding: 12px 20px;
     border: none;
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
-    border-radius: 4px; /* Smaller border radius */
     cursor: pointer;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); /* Material Design shadow */
 }
-
-button:hover {
-    background-color: #1976D2; /* Darker shade of primary on hover */
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23); /* Increased shadow on hover */
+#response {
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    white-space: pre-wrap; /* Allow line breaks in the response */
 }
-
-button:active {
-    transform: translateY(1px); /* Subtle lift on active */
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); /* Reduced shadow on active */
-}
-
-#saveSystemPrompt {
-    background-color: var(--secondary-color);
-    color: white; /* White text for secondary button */
-    margin-top: 0.5rem;
-    box-shadow: 0 2px 4px var(--shadow-color); /* Added subtle shadow */
-}
-
-#saveSystemPrompt:hover {
-    background-color: #0097A7; /* Darker shade of secondary on hover */
-    box-shadow: 0 4px 8px var(--shadow-color); /* Increased shadow on hover */
-}
-
-.submit-btn {
-    margin-top: 1rem;
-    font-weight: 700;
-}
-
-.toggle-switch {
-    display: flex;
-    background-color: #f5f5f5; /* Lighter toggle background */
-    border-radius: 4px; /* Smaller border radius */
-    overflow: hidden;
-    margin-top: 0.5rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); /* Subtle shadow */
-}
-
-.toggle-switch input[type="radio"] {
-    display: none;
-}
-
-.toggle-switch label {
-    flex: 1;
-    padding: 0.75rem 1rem;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-weight: 400;
-    color: var(--text-color);
-}
-
-.toggle-switch input[type="radio"]:checked + label {
-    background-color: var(--primary-color);
-    color: white;
-    font-weight: 500;
-}
-
-.notification {
-    background-color: #4caf50;
-    color: white;
-    padding: 1rem;
-    border-radius: 8px;
-    margin-top: 1rem;
-    display: none;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    box-shadow: 0 4px 6px var(--shadow-color); /* Use shadow variable */
-}
-
-@media (max-width: 768px) {
-    main {
-        padding: 1rem;
-    }
-
-    .input-column {
-        padding: 1.5rem;
-    }
-}
-
-/* Add smooth transitions for a more polished feel */
-* {
-    transition: all 0.3s ease;
-}
-
-/* Add a subtle hover effect to the form */
-.input-column:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px var(--shadow-color); /* Use shadow variable */
-}
-
-/* Improve spacing for mobile devices */
-@media (max-width: 480px) {
-    .input-column {
-        padding: 1rem;
-    }
-
-    textarea, input[type="text"] {
-        font-size: 0.9rem;
-    }
-
-    button {
-        padding: 0.6rem 1.2rem;
-        font-size: 0.9rem;
-    }
-}
-
-textarea {
-    font-family: 'Roboto Mono', monospace; /* Use a monospace font for textarea */
-    white-space: pre;
-    overflow-wrap: normal;
-    overflow-x: auto;
-    tab-size: 4; /* Set tab size for better code formatting */
-}
-
