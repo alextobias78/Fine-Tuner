@@ -1,25 +1,29 @@
 :root {
-    --primary-color: #6200ee;
-    --secondary-color: #03dac6;
-    --background-color: #f5f5f5;
-    --text-color: #333333;
+    --primary-color: #2196F3; /* Updated primary color */
+    --secondary-color: #00BCD4; /* Updated secondary color */
+    --background-color: #f8f9fa; /* Updated background color */
+    --text-color: #343a40; /* Updated text color */
     --input-background: #ffffff;
-    --border-color: #e0e0e0;
-    --error-color: #b00020;
+    --border-color: #ced4da; /* Updated border color */
+    --error-color: #dc3545; /* Updated error color */
+    --shadow-color: rgba(0, 0, 0, 0.1); /* Added shadow color variable */
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Inter', sans-serif; /* Updated font to Inter */
     margin: 0;
     padding: 0;
     background-color: var(--background-color);
     color: var(--text-color);
+    -webkit-font-smoothing: antialiased; /* Improved text rendering */
+    -moz-osx-font-smoothing: grayscale; /* Improved text rendering */
 }
 
 .app-container {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    align-items: center; /* Center content horizontally */
 }
 
 header {
@@ -27,7 +31,8 @@ header {
     color: white;
     text-align: center;
     padding: 2rem 0;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Make header full width */
+    box-shadow: 0 4px 6px var(--shadow-color); /* Use shadow variable */
 }
 
 h1 {
@@ -38,7 +43,7 @@ h1 {
 
 .subtitle {
     font-size: 1.2rem;
-    font-weight: 300;
+    font-weight: 400; /* Slightly lighter font weight */
     margin-top: 0.5rem;
     opacity: 0.8;
 }
@@ -49,15 +54,16 @@ main {
     display: flex;
     justify-content: center;
     align-items: flex-start;
+    width: 100%; /* Make main content full width */
 }
 
 .input-column {
     background-color: var(--input-background);
     border-radius: 12px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 20px var(--shadow-color); /* Use shadow variable */
     padding: 2rem;
     width: 100%;
-    max-width: 600px;
+    max-width: 700px; /* Increased max-width */
 }
 
 form {
@@ -74,7 +80,7 @@ form {
 label {
     margin-bottom: 0.5rem;
     font-weight: 500;
-    color: var(--primary-color);
+    color: var(--text-color); /* Use text color for labels */
 }
 
 textarea, input[type="text"] {
@@ -85,12 +91,13 @@ textarea, input[type="text"] {
     font-size: 1rem;
     transition: all 0.3s ease;
     background-color: #f9f9f9;
+    font-family: 'Inter', sans-serif; /* Use Inter font for inputs */
 }
 
 textarea:focus, input[type="text"]:focus {
     outline: none;
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(98, 0, 238, 0.1);
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.2); /* Updated focus shadow */
     background-color: #ffffff;
 }
 
@@ -106,11 +113,12 @@ button {
     text-transform: uppercase;
     font-weight: 500;
     letter-spacing: 0.5px;
+    box-shadow: 0 2px 4px var(--shadow-color); /* Added subtle shadow */
 }
 
 button:hover {
-    background-color: #7c4dff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #1976D2; /* Darker shade of primary on hover */
+    box-shadow: 0 4px 8px var(--shadow-color); /* Increased shadow on hover */
 }
 
 button:active {
@@ -119,12 +127,14 @@ button:active {
 
 #saveSystemPrompt {
     background-color: var(--secondary-color);
-    color: var(--text-color);
+    color: white; /* White text for secondary button */
     margin-top: 0.5rem;
+    box-shadow: 0 2px 4px var(--shadow-color); /* Added subtle shadow */
 }
 
 #saveSystemPrompt:hover {
-    background-color: #00bfa5;
+    background-color: #0097A7; /* Darker shade of secondary on hover */
+    box-shadow: 0 4px 8px var(--shadow-color); /* Increased shadow on hover */
 }
 
 .submit-btn {
@@ -134,10 +144,11 @@ button:active {
 
 .toggle-switch {
     display: flex;
-    background-color: #f0f0f0;
+    background-color: #e9ecef; /* Updated toggle background color */
     border-radius: 8px;
     overflow: hidden;
     margin-top: 0.5rem;
+    box-shadow: 0 2px 4px var(--shadow-color); /* Added subtle shadow */
 }
 
 .toggle-switch input[type="radio"] {
@@ -171,7 +182,7 @@ button:active {
     margin-left: auto;
     margin-right: auto;
     text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px var(--shadow-color); /* Use shadow variable */
 }
 
 @media (max-width: 768px) {
@@ -192,7 +203,7 @@ button:active {
 /* Add a subtle hover effect to the form */
 .input-column:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 15px 30px var(--shadow-color); /* Use shadow variable */
 }
 
 /* Improve spacing for mobile devices */
@@ -212,9 +223,10 @@ button:active {
 }
 
 textarea {
-    font-family: 'Roboto Mono', monospace;
+    font-family: 'Roboto Mono', monospace; /* Use a monospace font for textarea */
     white-space: pre;
     overflow-wrap: normal;
     overflow-x: auto;
+    tab-size: 4; /* Set tab size for better code formatting */
 }
 
