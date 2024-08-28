@@ -26,10 +26,12 @@ def index():
             {"role": "assistant", "content": request.form.get("assistant_input") or ""}
         ]
 
-        # Append the entries to the JSONL file
+        # Wrap the response lines in a dictionary with the key "messages"
+        response_data = {"messages": response_lines}
+
+        # Append the entry to the JSONL file
         with open(filename, 'a') as f:
-            for line in response_lines:
-                f.write(json.dumps(line) + '\n')
+            f.write(json.dumps(response_data) + '\n')
 
         return "Entries have been saved to " + filename
     return render_template("index.html")
