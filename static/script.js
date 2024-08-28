@@ -97,7 +97,6 @@ function handleFormSubmit(e) {
     .then(response => response.json())
     .then(data => {
         showNotification('Entry added successfully!', 'success');
-        addEntryToPreview(data);
         resetForm();
     })
     .catch(error => {
@@ -116,32 +115,10 @@ function showNotification(message, type) {
     }, 3000);
 }
 
-function addEntryToPreview(entry) {
-    const entryElement = document.createElement('div');
-    entryElement.className = 'entry';
-    entryElement.innerHTML = `<pre>${JSON.stringify(entry, null, 2)}</pre>`;
-    document.getElementById('entries').prepend(entryElement);
-}
-
 function resetForm() {
     const systemContentInput = document.getElementById('system_content');
     const savedSystemPrompt = systemContentInput.value;
     document.getElementById('datasetForm').reset();
     systemContentInput.value = savedSystemPrompt;
     document.getElementById('multi-turn-messages').innerHTML = '';
-}
-
-
-function fetchDatasetEntries() {
-    fetch('/get_entries')
-    .then(response => response.json())
-    .then(entries => {
-        const entriesContainer = document.getElementById('entries');
-        entriesContainer.innerHTML = '';
-        entries.forEach(entry => addEntryToPreview(entry));
-    })
-    .catch(error => {
-        console.error('Error fetching entries:', error);
-        showNotification('Error loading dataset entries.', 'error');
-    });
 }
