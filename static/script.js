@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const addMessageBtn = document.getElementById('add-message');
     const datasetForm = document.getElementById('datasetForm');
     const entriesContainer = document.getElementById('entries');
+    const resultNotification = document.getElementById('result');
     saveSystemPromptBtn.addEventListener('click', function() {
         savedSystemPrompt = systemContentInput.value;
         showNotification('System prompt saved!', 'success');

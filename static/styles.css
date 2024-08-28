@@ -48,7 +48,7 @@ main {
     gap: 2rem;
 }
 
-.input-column, .preview-column, .control-column {
+.input-column, .preview-column {
     flex: 1;
     background-color: var(--input-background);
     border-radius: 8px;
@@ -57,7 +57,11 @@ main {
 }
 
 .input-column {
-    flex: 2;
+    flex: 1;
+}
+
+.preview-column {
+    flex: 1;
 }
 
 form {
@@ -183,7 +187,7 @@ button:active {
         flex-direction: column;
     }
 
-    .input-column, .preview-column, .control-column {
+    .input-column, .preview-column {
         width: 100%;
     }
 }
@@ -193,7 +197,7 @@ button:active {
         padding: 1rem;
     }
 
-    .input-column, .preview-column, .control-column {
+    .input-column, .preview-column {
         padding: 1rem;
     }
 }
