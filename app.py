@@ -1,5 +1,8 @@
 import json
-from flask import Flask, render_template, request, jsonify
+import os
+import random
+import string
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
@@ -12,14 +15,22 @@ def index():
 
         # TODO: Implement fine-tuning logic here using user_input and system_prompt
 
-        # For now, just return a dummy response
+        # Create a random filename for the JSONL file
+        filename = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8)) + '.jsonl'
+
+        # Prepare the response lines
         response_lines = [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_input},
-            {"role": "assistant", "content": "This is a dummy response. Fine-tuning logic needs to be implemented."}
+            {"role": "assistant", "content": request.form.get("assistant_input")}
         ]
-        response_jsonl = "\n".join([json.dumps(line) for line in response_lines])
-        return response_jsonl
+
+        # Append the entries to the JSONL file
+        with open(filename, 'a') as f:
+            for line in response_lines:
+                f.write(json.dumps(line) + '\n')
+
+        return "Entries have been saved to " + filename
     return render_template("index.html")
 
 if __name__ == "__main__":
