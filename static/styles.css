@@ -1,10 +1,11 @@
 :root {
-    --primary-color: #3f51b5;
-    --secondary-color: #ff4081;
+    --primary-color: #6200ee;
+    --secondary-color: #03dac6;
     --background-color: #f5f5f5;
     --text-color: #333333;
     --input-background: #ffffff;
     --border-color: #e0e0e0;
+    --error-color: #b00020;
 }
 
 body {
@@ -39,20 +40,24 @@ h1 {
     font-size: 1.2rem;
     font-weight: 300;
     margin-top: 0.5rem;
+    opacity: 0.8;
 }
 
 main {
     flex-grow: 1;
     padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 .input-column {
     background-color: var(--input-background);
-    border-radius: 8px;
+    border-radius: 12px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     padding: 2rem;
-    max-width: 800px;
-    margin: 0 auto;
+    width: 100%;
+    max-width: 600px;
 }
 
 form {
@@ -76,14 +81,17 @@ textarea, input[type="text"] {
     width: 100%;
     padding: 0.75rem;
     border: 2px solid var(--border-color);
-    border-radius: 4px;
+    border-radius: 8px;
     font-size: 1rem;
-    transition: border-color 0.3s ease;
+    transition: all 0.3s ease;
+    background-color: #f9f9f9;
 }
 
 textarea:focus, input[type="text"]:focus {
     outline: none;
     border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(98, 0, 238, 0.1);
+    background-color: #ffffff;
 }
 
 button {
@@ -92,13 +100,17 @@ button {
     border: none;
     padding: 0.75rem 1.5rem;
     font-size: 1rem;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.1s ease;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 0.5px;
 }
 
 button:hover {
-    background-color: #303f9f;
+    background-color: #7c4dff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 button:active {
@@ -107,12 +119,12 @@ button:active {
 
 #saveSystemPrompt {
     background-color: var(--secondary-color);
-    color: white;
+    color: var(--text-color);
     margin-top: 0.5rem;
 }
 
 #saveSystemPrompt:hover {
-    background-color: #f50057;
+    background-color: #00bfa5;
 }
 
 .submit-btn {
@@ -122,9 +134,10 @@ button:active {
 
 .toggle-switch {
     display: flex;
-    background-color: var(--border-color);
-    border-radius: 4px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
     overflow: hidden;
+    margin-top: 0.5rem;
 }
 
 .toggle-switch input[type="radio"] {
@@ -133,27 +146,32 @@ button:active {
 
 .toggle-switch label {
     flex: 1;
-    padding: 0.5rem 1rem;
+    padding: 0.75rem 1rem;
     text-align: center;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
+    font-weight: 400;
+    color: var(--text-color);
 }
 
 .toggle-switch input[type="radio"]:checked + label {
     background-color: var(--primary-color);
     color: white;
+    font-weight: 500;
 }
 
 .notification {
     background-color: #4caf50;
     color: white;
     padding: 1rem;
-    border-radius: 4px;
+    border-radius: 8px;
     margin-top: 1rem;
     display: none;
-    max-width: 800px;
+    max-width: 600px;
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 @media (max-width: 768px) {
@@ -162,6 +180,41 @@ button:active {
     }
 
     .input-column {
-        padding: 1rem;
+        padding: 1.5rem;
     }
 }
+
+/* Add smooth transitions for a more polished feel */
+* {
+    transition: all 0.3s ease;
+}
+
+/* Add a subtle hover effect to the form */
+.input-column:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Improve spacing for mobile devices */
+@media (max-width: 480px) {
+    .input-column {
+        padding: 1rem;
+    }
+
+    textarea, input[type="text"] {
+        font-size: 0.9rem;
+    }
+
+    button {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+    }
+}
+
+textarea {
+    font-family: 'Roboto Mono', monospace;
+    white-space: pre;
+    overflow-wrap: normal;
+    overflow-x: auto;
+}
+
