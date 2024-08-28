@@ -21,11 +21,17 @@ def index():
 
         messages = [{"role": "system", "content": system_prompt}]
 
-        for user_input, assistant_input, weight in zip(user_inputs, assistant_inputs, weights):
-            if user_input:
-                messages.append({"role": "user", "content": user_input})
-            if assistant_input:
-                messages.append({"role": "assistant", "content": assistant_input, "weight": int(weight)})
+        if multi_prompt_mode:
+            for user_input, assistant_input, weight in zip(user_inputs, assistant_inputs, weights):
+                if user_input:
+                    messages.append({"role": "user", "content": user_input})
+                if assistant_input:
+                    messages.append({"role": "assistant", "content": assistant_input, "weight": int(weight)})
+        else:
+            if user_inputs[0]:
+                messages.append({"role": "user", "content": user_inputs[0]})
+            if assistant_inputs[0]:
+                messages.append({"role": "assistant", "content": assistant_inputs[0]})
 
         response_data = {"messages": messages}
 

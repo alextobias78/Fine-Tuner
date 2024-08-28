@@ -14,11 +14,13 @@ function createPromptSet() {
         <label for="assistant_input">Assistant Input:</label><br>
         <textarea class="assistant-input" name="assistant_input[]" rows="4" cols="50"></textarea><br><br>
 
-        <label for="weight">Weight:</label>
-        <select class="weight" name="weight[]">
-            <option value="1">1</option>
-            <option value="0">0</option>
-        </select><br><br>
+        <div class="weight-container" style="display: none;">
+            <label for="weight">Weight:</label>
+            <select class="weight" name="weight[]">
+                <option value="1">1</option>
+                <option value="0">0</option>
+            </select><br><br>
+        </div>
 
         <button type="button" class="remove-prompt">Remove Prompt</button><br><br>
     `;
@@ -42,6 +44,9 @@ multiPromptModeCheckbox.addEventListener('change', () => {
     promptSets.forEach((set, index) => {
         if (index === 0) return;
         set.style.display = multiPromptModeCheckbox.checked ? 'block' : 'none';
+    });
+    document.querySelectorAll('.weight-container').forEach(container => {
+        container.style.display = multiPromptModeCheckbox.checked ? 'block' : 'none';
     });
 });
 
