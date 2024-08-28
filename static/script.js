@@ -27,6 +27,12 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('savedSystemPrompt', this.value);
     });
 
+    // Ensure the system prompt is always up to date
+    datasetForm.addEventListener('submit', function(e) {
+        const currentSystemPrompt = systemContentInput.value;
+        localStorage.setItem('savedSystemPrompt', currentSystemPrompt);
+    });
+
     chatTypeInputs.forEach(input => {
         input.addEventListener('change', function() {
             if (this.value === 'single') {
@@ -70,10 +76,8 @@ function addMessageInput() {
 function handleFormSubmit(e) {
     e.preventDefault();
     const formData = new FormData(this);
-    const savedSystemPrompt = localStorage.getItem('savedSystemPrompt');
-    if (savedSystemPrompt) {
-        formData.set('system_content', savedSystemPrompt);
-    }
+    const currentSystemPrompt = document.getElementById('system_content').value;
+    formData.set('system_content', currentSystemPrompt);
 
     if (formData.get('chat_type') === 'multi') {
         const messages = [];
