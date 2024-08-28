@@ -1,4 +1,3 @@
-let savedSystemPrompt = '';
 let messageCounter = 0;
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -11,9 +10,21 @@ document.addEventListener('DOMContentLoaded', function() {
     const datasetForm = document.getElementById('datasetForm');
     const entriesContainer = document.getElementById('entries');
     const resultNotification = document.getElementById('result');
+
+    // Load saved system prompt from localStorage
+    const savedSystemPrompt = localStorage.getItem('savedSystemPrompt');
+    if (savedSystemPrompt) {
+        systemContentInput.value = savedSystemPrompt;
+    }
+
     saveSystemPromptBtn.addEventListener('click', function() {
-        savedSystemPrompt = systemContentInput.value;
+        localStorage.setItem('savedSystemPrompt', systemContentInput.value);
         showNotification('System prompt saved!', 'success');
+    });
+
+    // Update localStorage when system prompt changes
+    systemContentInput.addEventListener('input', function() {
+        localStorage.setItem('savedSystemPrompt', this.value);
     });
 
     chatTypeInputs.forEach(input => {
@@ -59,6 +70,7 @@ function addMessageInput() {
 function handleFormSubmit(e) {
     e.preventDefault();
     const formData = new FormData(this);
+    const savedSystemPrompt = localStorage.getItem('savedSystemPrompt');
     if (savedSystemPrompt) {
         formData.set('system_content', savedSystemPrompt);
     }
