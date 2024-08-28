@@ -12,4 +12,8 @@ form.addEventListener('submit', async (event) => {
 
     const text = await response.text();
     responseDiv.textContent = text;
+
+    // Clear the user input and assistant input fields
+    form.querySelector('#user_input').value = '';
+    form.querySelector('#assistant_input').value = '';
 });
