@@ -6,6 +6,9 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
+# Generate a random filename for the JSONL file once
+filename = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8)) + '.jsonl'
+
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
@@ -15,14 +18,12 @@ def index():
 
         # TODO: Implement fine-tuning logic here using user_input and system_prompt
 
-        # Create a random filename for the JSONL file
-        filename = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8)) + '.jsonl'
 
         # Prepare the response lines
         response_lines = [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_input},
-            {"role": "assistant", "content": request.form.get("assistant_input")}
+            {"role": "assistant", "content": request.form.get("assistant_input") or ""}
         ]
 
         # Append the entries to the JSONL file
