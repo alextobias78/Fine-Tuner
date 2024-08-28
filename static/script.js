@@ -10,6 +10,6 @@ form.addEventListener('submit', async (event) => {
         body: formData
     });
 
-    const data = await response.json();
-    responseDiv.textContent = JSON.stringify(data, null, 2);
+    const text = await response.text();
+    responseDiv.textContent = text;
 });
