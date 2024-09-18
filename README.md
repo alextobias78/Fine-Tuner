@@ -23,7 +23,7 @@ This application allows users to create and save fine-tuning data for GPT-4 by p
 
 1. **Clone the repository:**
     ```bash
-    git clone https://your-repository-url.git
+    git clone https://github.com/alextobias78/Fine-Tuner.git
     cd Fine-Tuner
     ```
 
