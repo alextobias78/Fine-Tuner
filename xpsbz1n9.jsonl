@@ -1,0 +1,4 @@
+{"messages": [{"role": "system", "content": "da"}, {"role": "user", "content": "da"}, {"role": "assistant", "content": "daaa"}]}
+{"messages": [{"role": "system", "content": "da"}, {"role": "user", "content": "ra"}, {"role": "assistant", "content": "ra"}]}
+{"messages": [{"role": "system", "content": "da"}, {"role": "user", "content": "ca"}, {"role": "assistant", "content": "ca"}]}
+{"messages": [{"role": "system", "content": "da"}, {"role": "user", "content": "aaa"}, {"role": "assistant", "content": "aaa", "weight": 1}, {"role": "user", "content": "noo"}, {"role": "assistant", "content": "raaaa", "weight": 1}]}

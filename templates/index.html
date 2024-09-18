@@ -3,8 +3,11 @@
 <head>
     <title>GPT-4 Fine-Tuner</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 </head>
 <body>
+    <button id="theme-toggle" class="theme-toggle"><i class="fas fa-moon"></i></button>
     <h1>GPT-4 Fine-Tuner</h1>
     <form method="POST">
         <label for="system_prompt">System Prompt:</label><br>
@@ -28,13 +31,13 @@
             </div>
         </div>
 
-        <button type="button" id="add-prompt">Add Prompt</button><br><br>
+        <button type="button" id="add-prompt"><i class="fas fa-plus"></i> Add Prompt</button><br><br>
 
         <label for="multi_prompt_mode">
             <input type="checkbox" id="multi_prompt_mode" name="multi_prompt_mode"> Multi-Prompt Mode
         </label><br><br>
 
-        <input type="submit" value="Submit">
+        <button type="submit" id="submit-btn"><i class="fas fa-paper-plane"></i> Submit</button>
     </form>
 
     <div id="response"></div>

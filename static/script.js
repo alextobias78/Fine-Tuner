@@ -2,6 +2,8 @@ const form = document.querySelector('form');
 const responseDiv = document.getElementById('response');
 const addPromptButton = document.getElementById('add-prompt');
 const promptsContainer = document.getElementById('prompts-container');
+const themeToggle = document.getElementById('theme-toggle');
+const submitButton = document.getElementById('submit-btn');
 const multiPromptModeCheckbox = document.getElementById('multi_prompt_mode');
 
 function createPromptSet() {
@@ -22,7 +24,7 @@ function createPromptSet() {
             </select><br><br>
         </div>
 
-        <button type="button" class="remove-prompt">Remove Prompt</button><br><br>
+        <button type="button" class="remove-prompt"><i class="fas fa-trash"></i> Remove Prompt</button><br><br>
     `;
     return promptSet;
 }
@@ -50,8 +52,28 @@ multiPromptModeCheckbox.addEventListener('change', () => {
     });
 });
 
+themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark-theme');
+    const icon = themeToggle.querySelector('i');
+    const transitionDuration = getComputedStyle(document.documentElement).getPropertyValue('--transition-duration');
+    if (document.body.classList.contains('dark-theme')) {
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+    } else {
+        icon.classList.remove('fa-sun');
+        icon.classList.add('fa-moon');
+        document.body.style.transition = `background-color ${transitionDuration} ease, color ${transitionDuration} ease`;
+    }
+});
+
 form.addEventListener('submit', async (event) => {
     event.preventDefault();
+
+    // Show loading spinner
+    const spinner = document.createElement('div');
+    spinner.className = 'spinner';
+    form.appendChild(spinner);
+    submitButton.disabled = true;
 
     const formData = new FormData(form);
     const response = await fetch('/', {
@@ -59,8 +81,12 @@ form.addEventListener('submit', async (event) => {
         body: formData
     });
 
+    // Hide loading spinner
+    spinner.remove();
+    submitButton.disabled = false;
+
     const text = await response.text();
-    responseDiv.textContent = text;
+    responseDiv.innerHTML = `<p class="response-text">${text}</p>`;
 
     // Clear the input fields
     form.querySelectorAll('.user-input, .assistant-input').forEach(input => input.value = '');
@@ -69,3 +95,22 @@ form.addEventListener('submit', async (event) => {
 // Initialize the form
 multiPromptModeCheckbox.checked = false;
 addPromptButton.style.display = 'none';
+
+document.body.classList.add('dark-theme');
+
+// Add subtle animations for form interactions
+const formInputs = document.querySelectorAll('textarea, select, button');
+formInputs.forEach(input => {
+    input.addEventListener('focus', () => {
+        input.style.transform = 'scale(1.02)';
+        input.style.transition = 'transform 0.2s ease';
+    });
+    input.addEventListener('blur', () => {
+        input.style.transform = 'scale(1)';
+    });
+});
+
+// Smooth scroll to response
+responseDiv.addEventListener('DOMNodeInserted', () => {
+    responseDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});

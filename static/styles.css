@@ -1,84 +1,165 @@
+:root {
+    --bg-color: #f0f2f5;
+    --text-color: #333;
+    --primary-color: #4a90e2;
+    --secondary-color: #ffffff;
+    --accent-color: #ff6b6b;
+    --transition-duration: 0.3s;
+}
+
+.dark-theme {
+    --bg-color: #1f2937;
+    --text-color: #e0e0e0;
+    --primary-color: #3498db;
+    --secondary-color: #16213e;
+    --accent-color: #e94560;
+}
+
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+    background: var(--bg-color);
+    transition: background-color var(--transition-duration) ease, color var(--transition-duration) ease;
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
-    color: #333;
+    color: var(--text-color);
+}
+
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    transition: background-color var(--transition-duration) ease, transform var(--transition-duration) ease;
+}
+
+.theme-toggle:hover {
+    background-color: var(--accent-color);
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 2rem auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 h1 {
-    color: #2c3e50;
+    color: var(--accent-color);
     text-align: center;
-    margin-top: 40px;
-    font-size: 2.5em;
+    margin: 2rem 0;
+    font-size: 3em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
 form {
-    background-color: #ecf0f1;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 80%;
-    max-width: 600px;
-    margin-top: 20px;
+    background-color: var(--secondary-color);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 800px;
+    margin-top: 2rem;
+    transition: all var(--transition-duration) ease;
+}
+
+form:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    transition: transform var(--transition-duration) ease, box-shadow var(--transition-duration) ease;
 }
 
 label {
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 0.5rem;
     font-weight: bold;
+    color: var(--accent-color);
 }
 
-textarea {
+textarea, select {
     width: 100%;
-    padding: 12px;
-    margin-bottom: 15px;
-    border: 1px solid #bdc3c7;
-    border-radius: 4px;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--primary-color);
+    border-radius: 8px;
     box-sizing: border-box;
-    font-size: 1em;
+    font-size: 1rem;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: all var(--transition-duration) ease;
 }
 
-input[type="submit"], button {
-    background-color: #3498db;
-    color: white;
-    padding: 12px 20px;
+textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(233, 69, 96, 0.2);
+}
+
+button {
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    padding: 0.8rem 1.5rem;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 1em;
-    transition: background-color 0.3s ease;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition: background-color var(--transition-duration) ease, transform var(--transition-duration) ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-width: 120px;
 }
 
 input[type="submit"]:hover, button:hover {
-    background-color: #2980b9;
+    background-color: #d63851;
+    transform: translateY(-2px);
 }
 
 #response {
-    margin-top: 20px;
-    border: 1px solid #bdc3c7;
-    padding: 15px;
+    margin-top: 2rem;
+    border: 1px solid var(--primary-color);
+    padding: 1.5rem;
     white-space: pre-wrap;
-    background-color: #ffffff;
-    border-radius: 4px;
-    width: 80%;
-    max-width: 600px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: var(--secondary-color);
+    border-radius: 8px;
+    width: 100%;
+    max-width: 800px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: all var(--transition-duration) ease;
 }
 
 .prompt-set {
-    border: 1px solid #bdc3c7;
-    padding: 15px;
-    margin-bottom: 15px;
-    border-radius: 4px;
+    border: 1px solid var(--primary-color);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.05);
+    transition: all var(--transition-duration) ease;
+}
+
+.prompt-set:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
 #add-prompt {
-    margin-bottom: 15px;
+    margin-bottom: 1.5rem;
+    background-color: var(--primary-color);
 }
 
 .remove-prompt {
@@ -89,9 +170,95 @@ input[type="submit"]:hover, button:hover {
     background-color: #c0392b;
 }
 
-select {
-    padding: 8px;
-    border-radius: 4px;
-    border: 1px solid #bdc3c7;
-    font-size: 1em;
+.weight-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.weight-container label {
+    margin-right: 1rem;
+    margin-bottom: 0;
+}
+
+.weight-container select {
+    width: auto;
+    margin-bottom: 0;
+}
+
+@media (min-width: 768px) {
+    .container {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+
+    form {
+        width: 60%;
+    }
+
+    #response {
+        width: 35%;
+        margin-top: 0;
+        position: sticky;
+        top: 2rem;
+    }
+}
+
+/* Add a subtle animation for form elements */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+form > * {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Loading spinner */
+.spinner {
+    display: none;
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--secondary-color);
+    border-top: 4px solid var(--accent-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2em;
+    }
+}
+
+/* Smooth transition for theme switching */
+body, button, textarea, select, #response {
+    transition: background-color var(--transition-duration) ease,
+                color var(--transition-duration) ease,
+                border-color var(--transition-duration) ease;
+}
+
+/* Enhanced form layout */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+/* Improved response section */
+#response {
+    background-color: var(--secondary-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: all var(--transition-duration) ease;
+}
+
+#response:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
